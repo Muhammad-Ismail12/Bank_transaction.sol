@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="actions">
+	<a class="btn" href="/appointments/new">New Appointment</a>
+	<a class="btn secondary" href="/appointments/schedule">Weekly Schedule</a>
+</div>
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Patient</th>
+			<th>Doctor</th>
+			<th>Start</th>
+			<th>End</th>
+			<th>Reason</th>
+			<th>Status</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for a in appointments %}
+		<tr>
+			<td>{{ a.id }}</td>
+			<td>{{ a.patient.first_name }} {{ a.patient.last_name }}</td>
+			<td>{{ a.doctor.first_name }} {{ a.doctor.last_name }}</td>
+			<td>{{ a.start_time }}</td>
+			<td>{{ a.end_time }}</td>
+			<td>{{ a.reason }}</td>
+			<td>{{ a.status }}</td>
+			<td>
+				<a class="btn secondary" href="/appointments/{{ a.id }}">Edit</a>
+				<form method="post" action="/appointments/{{ a.id }}/delete" style="display:inline" onsubmit="return confirm('Delete appointment?');">
+					<button class="btn" type="submit" style="background:#ef4444">Delete</button>
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

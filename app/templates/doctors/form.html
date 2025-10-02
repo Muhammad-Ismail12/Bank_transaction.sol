@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="post" action="{% if doctor %}/doctors/{{ doctor.id }}{% else %}/doctors/new{% endif %}">
+	<div class="field">
+		<label>First Name</label>
+		<input name="first_name" value="{{ doctor.first_name if doctor }}" required />
+	</div>
+	<div class="field">
+		<label>Last Name</label>
+		<input name="last_name" value="{{ doctor.last_name if doctor }}" required />
+	</div>
+	<div class="field">
+		<label>Specialty</label>
+		<input name="specialty" value="{{ doctor.specialty if doctor }}" />
+	</div>
+	<div class="field">
+		<label>Phone</label>
+		<input name="phone" value="{{ doctor.phone if doctor }}" />
+	</div>
+	<div class="field">
+		<label>Email</label>
+		<input type="email" name="email" value="{{ doctor.email if doctor }}" />
+	</div>
+	<div class="actions">
+		<button class="btn" type="submit">Save</button>
+		<a class="btn secondary" href="/doctors">Cancel</a>
+	</div>
+</form>
+{% endblock %}

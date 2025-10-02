@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="post" action="{% if appointment %}/appointments/{{ appointment.id }}{% else %}/appointments/new{% endif %}">
+	<div class="field">
+		<label>Patient</label>
+		<select name="patient_id" required>
+			{% for p in patients %}
+			<option value="{{ p.id }}" {% if appointment and appointment.patient_id == p.id %}selected{% endif %}>{{ p.first_name }} {{ p.last_name }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div class="field">
+		<label>Doctor</label>
+		<select name="doctor_id" required>
+			{% for d in doctors %}
+			<option value="{{ d.id }}" {% if appointment and appointment.doctor_id == d.id %}selected{% endif %}>{{ d.first_name }} {{ d.last_name }}{% if d.specialty %} ({{ d.specialty }}){% endif %}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div class="field">
+		<label>Start Time</label>
+		<input type="datetime-local" name="start_time" value="{% if appointment %}{{ appointment.start_time.isoformat(timespec='minutes') }}{% endif %}" required />
+	</div>
+	<div class="field">
+		<label>End Time</label>
+		<input type="datetime-local" name="end_time" value="{% if appointment %}{{ appointment.end_time.isoformat(timespec='minutes') }}{% endif %}" required />
+	</div>
+	<div class="field">
+		<label>Reason</label>
+		<input name="reason" value="{{ appointment.reason if appointment }}" />
+	</div>
+	<div class="actions">
+		<button class="btn" type="submit">Save</button>
+		<a class="btn secondary" href="/appointments">Cancel</a>
+	</div>
+</form>
+{% endblock %}

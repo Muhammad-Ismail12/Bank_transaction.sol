@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>{{ request.app.title }}</title>
+	<link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+	<nav class="navbar">
+		<div class="container">
+			<a href="/" class="brand">Clinic</a>
+			<ul class="nav">
+				<li><a href="/patients">Patients</a></li>
+				<li><a href="/doctors">Doctors</a></li>
+				<li><a href="/appointments">Appointments</a></li>
+				<li><a href="/logout">Logout</a></li>
+			</ul>
+		</div>
+	</nav>
+	<main class="container">
+		<h1>Welcome{% if username %}, {{ username }}{% endif %}</h1>
+		{% block content %}{% endblock %}
+	</main>
+</body>
+</html>
